@@ -20,14 +20,19 @@
 
 @implementation ZLiveNewsCell
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.frame = CGRectMake(0, 0, kScreenWidth, 102);
         self.backgroundColor = [UIColor clearColor];
         [self setupLiveCellView];
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
 }
 
 - (UILabel *)timeLabel {
@@ -45,6 +50,7 @@
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(kContentLabelLeftGap, 0, kScreenWidth - kContentLabelLeftGap - 15, 72)];
         _contentLabel.numberOfLines = 3;
         _contentLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _contentLabel.textAlignment = NSTextAlignmentNatural;
         _contentLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
         _contentLabel.font = [UIFont systemFontOfSize:15.0f];
     }

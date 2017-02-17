@@ -23,15 +23,19 @@
 
 @implementation ZQuoteCell
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.frame = CGRectMake(0, 0, kScreenWidth, 78);
         self.backgroundColor = [UIColor clearColor];
         [self setupQuoteCellView];
-        [self addTouchEvent];
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
 }
 
 - (UILabel *)productNameLabel {
@@ -90,10 +94,6 @@
     [self addSubview:self.lastPxLabel];
     [self addSubview:self.changeLabel];
     [self addSubview:self.lineView];
-}
-
-- (void)addTouchEvent {
-    
 }
 
 @end

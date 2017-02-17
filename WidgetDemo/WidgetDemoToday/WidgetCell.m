@@ -13,21 +13,26 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *subTitleLabel;
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *newsImageView;
 @property (nonatomic, strong) UIView *lineView;
+
 @end
 
 @implementation WidgetCell
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.frame = CGRectMake(0, 0, kScreenWidth, 110);
         self.backgroundColor = [UIColor clearColor];
         [self setupWidgetCellView];
-        [self addTouchEvent];
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
 }
 
 - (UILabel *)titleLabel {
@@ -52,12 +57,12 @@
     return _subTitleLabel;
 }
 
-- (UIImageView *)imageView {
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth - 15 - 80, 15, 80, 80)];
-        _imageView.image = [UIImage imageNamed:@"quote_web_sina"];
+- (UIImageView *)newsImageView {
+    if (!_newsImageView) {
+        _newsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth - 15 - 80, 15, 80, 80)];
+        _newsImageView.image = [UIImage imageNamed:@"quote_web_sina"];
     }
-    return _imageView;
+    return _newsImageView;
 }
 
 - (UIView *)lineView {
@@ -71,19 +76,8 @@
 - (void)setupWidgetCellView {
     [self addSubview:self.titleLabel];
     [self addSubview:self.subTitleLabel];
-    [self addSubview:self.imageView];
+    [self addSubview:self.newsImageView];
     [self addSubview:self.lineView];
-}
-
-- (void)addTouchEvent {
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(widgetCellTapped:)];
-    [self addGestureRecognizer:tapGesture];
-}
-
-- (IBAction)widgetCellTapped:(id)sender {
-    if (self.widgetCellBlock) {
-        self.widgetCellBlock(@"wscnWidget://wallstreetcn.com");
-    }
 }
 
 @end

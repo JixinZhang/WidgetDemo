@@ -48,14 +48,14 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    if ([url.scheme isEqualToString:@"widget"]) {
+    if ([url.scheme isEqualToString:@"wscnWidget"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ExtenicationNotification" object:url];
     }
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([url.scheme isEqualToString:@"widget"]) {
+    if ([url.scheme isEqualToString:@"wscnWidget"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ExtenicationNotification" object:url];
     }
     return YES;

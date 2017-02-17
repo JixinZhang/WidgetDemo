@@ -13,11 +13,12 @@
 #import "WidgetCell.h"
 #import "ZLiveNewsCell.h"
 #import "ZQuoteCell.h"
+#import "ZCalendarCell.h"
 
-@interface TodayViewController () <NCWidgetProviding>
+@interface TodayViewController () <NCWidgetProviding,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) WidgetHeaderView *headerView;
-@property (nonatomic, strong) UIView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) WidgetCell *newsCell;
 @property (nonatomic, strong) ZLiveNewsCell *liveCell;
 @property (nonatomic, strong) ZQuoteCell *quoteCell;
@@ -37,25 +38,34 @@
     return _headerView;
 }
 
-- (UIView *)tableView {
+- (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, kScreenWidth, 440)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, kScreenWidth, 440)];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.tableFooterView = [UIView new];
     }
     return _tableView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.wallstreetcn.ExtensionDemo"];
-    NSNumber *widgetChannel = [userDefaults valueForKey:@"widgetChannel"];
-    [self.headerView setHeaderButtonSelected:widgetChannel.integerValue];
-    self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.preferredContentSize = CGSizeMake(kScreenWidth, 81.5);
     [self.view addSubview:self.headerView];
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.wallstreetcn.ExtensionDemo"];
+    NSNumber *widgetChannel = [userDefaults valueForKey:@"widgetChannel"];
+    [self.headerView setHeaderButtonSelected:widgetChannel.integerValue];
+    
+    if (kSysOversion >= 10.0) {
+        self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
+    } else {
+        self.preferredContentSize = CGSizeMake(kScreenWidth, 520);
+        [self setupTableViewWith:widgetChannel.integerValue];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,81 +96,85 @@
     NSLog(@"%ld",(long)self.extensionContext.widgetActiveDisplayMode);
 }
 
-- (void)setupNewsTableView {
-    [self.tableView removeFromSuperview];
-    for (UIView *view in [self.tableView subviews]) {
-        [view removeFromSuperview];
-    }
-    __weak typeof (self)weakSelf = self;
-    for (NSInteger i = 0; i < 4; i++) {
-        WidgetCell *newsCell = [[WidgetCell alloc] init];
-        newsCell.frame = CGRectMake(0, 110 * i, kScreenWidth, 110);
-        newsCell.widgetCellBlock = ^(NSString *string) {
-            NSLog(@"%@",string);
-            NSURL *url = [NSURL URLWithString:string];
-            [weakSelf.extensionContext openURL:url completionHandler:^(BOOL success) {
-                
-            }];
-        };
-        [self.tableView addSubview:newsCell];
-    }
-    [self.view addSubview:self.tableView];
-}
-
-- (void)setupLiveTableView {
-    [self.tableView removeFromSuperview];
-    for (UIView *view in [self.tableView subviews]) {
-        [view removeFromSuperview];
-    }
-    for (NSInteger i = 0; i < 4; i++) {
-        ZLiveNewsCell *liveNewsCell = [[ZLiveNewsCell alloc] init];
-        liveNewsCell.frame = CGRectMake(0, 102 * i, kScreenWidth, 102);
-        [self.tableView addSubview:liveNewsCell];
-    }
-    [self.view addSubview:self.tableView];
-}
-
-- (void)setupQuoteTableView {
-    [self.tableView removeFromSuperview];
-    for (UIView *view in [self.tableView subviews]) {
-        [view removeFromSuperview];
-    }
-    for (NSInteger i = 0; i < 5; i++) {
-        ZQuoteCell *quoteCell = [[ZQuoteCell alloc] init];
-        quoteCell.frame = CGRectMake(0, 78 * i - 5, kScreenWidth, 78);
-        [self.tableView addSubview:quoteCell];
-    }
-    [self.view addSubview:self.tableView];
-}
-
-- (void)setupCalendarTableView {
-    [self.tableView removeFromSuperview];
-    for (UIView *view in [self.tableView subviews]) {
-        [view removeFromSuperview];
-    }
+- (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)defaultMarginInsets{    
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)setupTableViewWith:(NSInteger )index {
-    if (self.extensionContext.widgetActiveDisplayMode == NCWidgetDisplayModeCompact) {
-        return;
+    if (kSysOversion >= 10.0) {
+        if (self.extensionContext.widgetActiveDisplayMode == NCWidgetDisplayModeCompact) {
+            return;
+        }
     }
-    switch (index) {
-        case 0:
-            [self setupNewsTableView];
+    self.tableView.tag = 100 + index;
+    [self.tableView removeFromSuperview];
+    [self.view addSubview:self.tableView];
+    [self.tableView reloadData];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView.tag == 102) {
+        return 5;
+    } else {
+        return 4;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (tableView.tag) {
+        case 100:
+            return 110.0f;
             break;
-        case 1:
-            [self setupLiveTableView];
+        case 101:
+            return 102.0f;
             break;
-        case 2:
-            [self setupQuoteTableView];
+        case 102:
+            return 78.0f;
             break;
-        case 3:
-            [self setupCalendarTableView];
-            break;
-            
-        default:
+        case 103:
+            return 75.0f;
             break;
     }
+    return 110.0f;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *cellIdentifier = @"CellIdentifier";
+    if (tableView.tag == 100) {
+        WidgetCell *cell = [[WidgetCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        return cell;
+    } else if (tableView.tag == 101) {
+        ZLiveNewsCell *liveNewsCell = [[ZLiveNewsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        return liveNewsCell;
+    } else if (tableView.tag == 102) {
+        ZQuoteCell *quoteCell = [[ZQuoteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+//        quoteCell.frame = CGRectMake(0, 78 * i - 5, kScreenWidth, 78);
+        return quoteCell;
+    } else {
+        ZCalendarCell *cell = [[ZCalendarCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.label.text = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+        return cell;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString *string = @"wscnWidget://wallstreetcn.com";
+    if (tableView.tag == 101) {
+        string = @"wscnWidget://live.wallstreetcn.com";
+    } else if (tableView.tag == 102) {
+        string = @"wscnWidget://quote.wallstreetcn.com";
+    } else if (tableView.tag == 103) {
+        string = @"wscnWidget://calendar.wallstreetcn.com";
+    }
+    NSURL *url = [NSURL URLWithString:string];
+    [self.extensionContext openURL:url completionHandler:^(BOOL success) {
+        
+    }];
 }
 
 @end

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZQuoteCell : UIView
+@interface ZQuoteCell : UITableViewCell
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WidgetCell : UIView
+@interface WidgetCell : UITableViewCell
 
 @property (nonatomic, copy) void (^widgetCellBlock)(id);
 

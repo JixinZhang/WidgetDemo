@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZLiveNewsCell : UIView
+@interface ZLiveNewsCell : UITableViewCell
 
 @end

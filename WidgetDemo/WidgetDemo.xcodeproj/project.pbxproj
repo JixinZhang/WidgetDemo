@@ -27,7 +27,7 @@
 		78116BC01E559C8C00D06853 /* manager.png in Resources */ = {isa = PBXBuildFile; fileRef = 78116BBF1E559C8C00D06853 /* manager.png */; };
 		78116BC31E55A26800D06853 /* ZLiveNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78116BC21E55A26800D06853 /* ZLiveNewsCell.m */; };
 		78116BC61E55A2A300D06853 /* ZQuoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78116BC51E55A2A300D06853 /* ZQuoteCell.m */; };
-		78116BC91E55A2C600D06853 /* ZCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 78116BC81E55A2C600D06853 /* ZCalendar.m */; };
+		7817ADA01E56CA1E00F5F204 /* ZCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7817AD9F1E56CA1E00F5F204 /* ZCalendarCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,9 +86,9 @@
 		78116BC21E55A26800D06853 /* ZLiveNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLiveNewsCell.m; sourceTree = "<group>"; };
 		78116BC41E55A2A300D06853 /* ZQuoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZQuoteCell.h; sourceTree = "<group>"; };
 		78116BC51E55A2A300D06853 /* ZQuoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZQuoteCell.m; sourceTree = "<group>"; };
-		78116BC71E55A2C600D06853 /* ZCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCalendar.h; sourceTree = "<group>"; };
-		78116BC81E55A2C600D06853 /* ZCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCalendar.m; sourceTree = "<group>"; };
 		78116BCA1E55A3CD00D06853 /* WidgetDemoTodyDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WidgetDemoTodyDefine.h; sourceTree = "<group>"; };
+		7817AD9E1E56CA1E00F5F204 /* ZCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCalendarCell.h; sourceTree = "<group>"; };
+		7817AD9F1E56CA1E00F5F204 /* ZCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCalendarCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,8 +171,7 @@
 				78116BA01E55755200D06853 /* Info.plist */,
 				78116BA91E55789C00D06853 /* WidgetHeaderView.h */,
 				78116BAA1E55789C00D06853 /* WidgetHeaderView.m */,
-				78116BB61E55864600D06853 /* WidgetCell.h */,
-				78116BB71E55864600D06853 /* WidgetCell.m */,
+				7817ADA11E56D45600F5F204 /* ZNews */,
 				7817AD9C1E56BC2700F5F204 /* ZLiveNews */,
 				7817AD9A1E56BC0600F5F204 /* ZQuote */,
 				7817AD9B1E56BC1300F5F204 /* ZCalendar */,
@@ -207,8 +206,8 @@
 		7817AD9B1E56BC1300F5F204 /* ZCalendar */ = {
 			isa = PBXGroup;
 			children = (
-				78116BC71E55A2C600D06853 /* ZCalendar.h */,
-				78116BC81E55A2C600D06853 /* ZCalendar.m */,
+				7817AD9E1E56CA1E00F5F204 /* ZCalendarCell.h */,
+				7817AD9F1E56CA1E00F5F204 /* ZCalendarCell.m */,
 			);
 			name = ZCalendar;
 			sourceTree = "<group>";
@@ -220,6 +219,15 @@
 				78116BC21E55A26800D06853 /* ZLiveNewsCell.m */,
 			);
 			name = ZLiveNews;
+			sourceTree = "<group>";
+		};
+		7817ADA11E56D45600F5F204 /* ZNews */ = {
+			isa = PBXGroup;
+			children = (
+				78116BB61E55864600D06853 /* WidgetCell.h */,
+				78116BB71E55864600D06853 /* WidgetCell.m */,
+			);
+			name = ZNews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,12 +356,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78116BC91E55A2C600D06853 /* ZCalendar.m in Sources */,
 				78116B9C1E55755200D06853 /* TodayViewController.m in Sources */,
 				78116BC61E55A2A300D06853 /* ZQuoteCell.m in Sources */,
 				78116BC31E55A26800D06853 /* ZLiveNewsCell.m in Sources */,
 				78116BAB1E55789C00D06853 /* WidgetHeaderView.m in Sources */,
 				78116BB81E55864600D06853 /* WidgetCell.m in Sources */,
+				7817ADA01E56CA1E00F5F204 /* ZCalendarCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

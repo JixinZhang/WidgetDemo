@@ -29,7 +29,6 @@
     self = [super init];
     if (self) {
         self.frame = CGRectMake(0, 0, kScreenWidth, 81.5);
-//        self.backgroundColor = [UIColor colorWithWhite:1 alpha:0.6];
         [self setupWidgetHeaderView];
     }
     return self;
