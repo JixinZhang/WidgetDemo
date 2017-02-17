@@ -12,7 +12,7 @@
 #import "WidgetHeaderView.h"
 #import "WidgetCell.h"
 #import "ZLiveNewsCell.h"
-
+#import "ZQuoteCell.h"
 
 @interface TodayViewController () <NCWidgetProviding>
 
@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIView *tableView;
 @property (nonatomic, strong) WidgetCell *newsCell;
 @property (nonatomic, strong) ZLiveNewsCell *liveCell;
+@property (nonatomic, strong) ZQuoteCell *quoteCell;
 
 @end
 
@@ -45,11 +46,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    [self.headerView setHeaderButtonSelected:0];
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.wallstreetcn.ExtensionDemo"];
+    NSNumber *widgetChannel = [userDefaults valueForKey:@"widgetChannel"];
+    [self.headerView setHeaderButtonSelected:widgetChannel.integerValue];
+    self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.preferredContentSize = CGSizeMake(kScreenWidth, 81.5);
     [self.view addSubview:self.headerView];
 }
 
@@ -71,11 +76,14 @@
 - (void)widgetActiveDisplayModeDidChange:(NCWidgetDisplayMode)activeDisplayMode withMaximumSize:(CGSize)maxSize {
     if (activeDisplayMode == NCWidgetDisplayModeExpanded) {
         self.preferredContentSize = CGSizeMake(kScreenWidth, 520);
-        [self setupNewsTableView];
+        NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.wallstreetcn.ExtensionDemo"];
+        NSNumber *widgetChannel = [userDefaults valueForKey:@"widgetChannel"];
+        [self setupTableViewWith:widgetChannel.integerValue];
     } else {
         self.preferredContentSize = CGSizeMake(kScreenWidth, 81.5);
         [self.tableView removeFromSuperview];
     }
+    NSLog(@"%ld",(long)self.extensionContext.widgetActiveDisplayMode);
 }
 
 - (void)setupNewsTableView {
@@ -117,6 +125,12 @@
     for (UIView *view in [self.tableView subviews]) {
         [view removeFromSuperview];
     }
+    for (NSInteger i = 0; i < 5; i++) {
+        ZQuoteCell *quoteCell = [[ZQuoteCell alloc] init];
+        quoteCell.frame = CGRectMake(0, 78 * i - 5, kScreenWidth, 78);
+        [self.tableView addSubview:quoteCell];
+    }
+    [self.view addSubview:self.tableView];
 }
 
 - (void)setupCalendarTableView {
@@ -127,6 +141,9 @@
 }
 
 - (void)setupTableViewWith:(NSInteger )index {
+    if (self.extensionContext.widgetActiveDisplayMode == NCWidgetDisplayModeCompact) {
+        return;
+    }
     switch (index) {
         case 0:
             [self setupNewsTableView];

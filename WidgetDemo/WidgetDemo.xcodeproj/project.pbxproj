@@ -173,12 +173,9 @@
 				78116BAA1E55789C00D06853 /* WidgetHeaderView.m */,
 				78116BB61E55864600D06853 /* WidgetCell.h */,
 				78116BB71E55864600D06853 /* WidgetCell.m */,
-				78116BC11E55A26800D06853 /* ZLiveNewsCell.h */,
-				78116BC21E55A26800D06853 /* ZLiveNewsCell.m */,
-				78116BC41E55A2A300D06853 /* ZQuoteCell.h */,
-				78116BC51E55A2A300D06853 /* ZQuoteCell.m */,
-				78116BC71E55A2C600D06853 /* ZCalendar.h */,
-				78116BC81E55A2C600D06853 /* ZCalendar.m */,
+				7817AD9C1E56BC2700F5F204 /* ZLiveNews */,
+				7817AD9A1E56BC0600F5F204 /* ZQuote */,
+				7817AD9B1E56BC1300F5F204 /* ZCalendar */,
 				78116BCA1E55A3CD00D06853 /* WidgetDemoTodyDefine.h */,
 			);
 			path = WidgetDemoToday;
@@ -196,6 +193,33 @@
 				78116BBF1E559C8C00D06853 /* manager.png */,
 			);
 			name = Resource;
+			sourceTree = "<group>";
+		};
+		7817AD9A1E56BC0600F5F204 /* ZQuote */ = {
+			isa = PBXGroup;
+			children = (
+				78116BC41E55A2A300D06853 /* ZQuoteCell.h */,
+				78116BC51E55A2A300D06853 /* ZQuoteCell.m */,
+			);
+			name = ZQuote;
+			sourceTree = "<group>";
+		};
+		7817AD9B1E56BC1300F5F204 /* ZCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				78116BC71E55A2C600D06853 /* ZCalendar.h */,
+				78116BC81E55A2C600D06853 /* ZCalendar.m */,
+			);
+			name = ZCalendar;
+			sourceTree = "<group>";
+		};
+		7817AD9C1E56BC2700F5F204 /* ZLiveNews */ = {
+			isa = PBXGroup;
+			children = (
+				78116BC11E55A26800D06853 /* ZLiveNewsCell.h */,
+				78116BC21E55A26800D06853 /* ZLiveNewsCell.m */,
+			);
+			name = ZLiveNews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,6 +483,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 49FUNDNGC6;
 				INFOPLIST_FILE = WidgetDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = wallstreetcn.com.WidgetDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -471,6 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 49FUNDNGC6;
 				INFOPLIST_FILE = WidgetDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = wallstreetcn.com.WidgetDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -483,6 +509,7 @@
 				CODE_SIGN_ENTITLEMENTS = WidgetDemoToday/WidgetDemoToday.entitlements;
 				DEVELOPMENT_TEAM = 49FUNDNGC6;
 				INFOPLIST_FILE = WidgetDemoToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = wallstreetcn.com.WidgetDemo.WidgetDemoToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -496,6 +523,7 @@
 				CODE_SIGN_ENTITLEMENTS = WidgetDemoToday/WidgetDemoToday.entitlements;
 				DEVELOPMENT_TEAM = 49FUNDNGC6;
 				INFOPLIST_FILE = WidgetDemoToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = wallstreetcn.com.WidgetDemo.WidgetDemoToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -522,6 +550,7 @@
 				78116B901E55753100D06853 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		78116BA41E55755200D06853 /* Build configuration list for PBXNativeTarget "WidgetDemoToday" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +559,7 @@
 				78116BA61E55755200D06853 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

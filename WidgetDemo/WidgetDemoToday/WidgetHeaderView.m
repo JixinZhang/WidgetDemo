@@ -72,6 +72,9 @@
     }
     UIButton *selectedButton = self.buttonArray[index];
     selectedButton.selected = YES;
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.wallstreetcn.ExtensionDemo"];
+    [userDefaults setValue:@(index) forKey:@"widgetChannel"];
+    [userDefaults synchronize];
 }
 
 - (IBAction)headerButtonClicked:(UIButton *)button {
